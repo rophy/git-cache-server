@@ -13,7 +13,8 @@ RUN tar -C / -Jxpf /tmp/s6-overlay-noarch.tar.xz && \
 	rm -rf /tmp/*.xz
 
 COPY . /tmp/build
-RUN cp -R /tmp/build/s6-rc.d /etc/s6-overlay/ && \
+RUN mkdir -p /srv/git && \
+	cp -R /tmp/build/s6-rc.d /etc/s6-overlay/ && \
 	cp /tmp/build/nginx.conf /etc/nginx/nginx.conf  && \
 	rm -rf /tmp/build
 
