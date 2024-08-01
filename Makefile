@@ -1,6 +1,8 @@
 build:
-	docker build -t git-cache-server .
+	docker-compose build
 
-run:
-	docker run --rm -p 8080:80 git-cache-server
+up:
+	docker-compose up -d
 
+down:
+	docker-compose down

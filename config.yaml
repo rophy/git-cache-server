@@ -1,0 +1,4 @@
+git_repos:
+- name: git-cache-server
+  url: https://github.com/rophy/git-cache-server.git
+  branch: main

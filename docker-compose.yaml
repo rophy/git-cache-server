@@ -1,0 +1,12 @@
+services:
+  app:
+    image: git-cache-server
+    build: .
+    ports:
+    - 8080:80
+    environment:
+      S6_KEEP_ENV: '1'
+    volumes:
+    - git-cache:/srv/git
+volumes:
+  git-cache: {}

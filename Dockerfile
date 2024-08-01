@@ -1,7 +1,7 @@
 FROM debian:bookworm-20240722-slim
 
 RUN apt-get update && \
-	apt-get install -y fcgiwrap execline git nginx spawn-fcgi xz-utils && \
+	apt-get install -y fcgiwrap execline gettext git nginx spawn-fcgi xz-utils yq && \
 	# for development
 	apt-get install -y apache2-utils curl procps && \
 	rm -rf /var/lib/apt/lists/*
@@ -14,8 +14,11 @@ RUN tar -C / -Jxpf /tmp/s6-overlay-noarch.tar.xz && \
 
 COPY . /tmp/build
 RUN mkdir -p /srv/git && \
+	mkdir -p /etc/git-cache-server && \
 	cp -R /tmp/build/s6-rc.d /etc/s6-overlay/ && \
+	cp -R /tmp/build/scripts /scripts && \
 	cp /tmp/build/nginx.conf /etc/nginx/nginx.conf  && \
+	cp /tmp/build/config.yaml /etc/git-cache-server/config.yaml && \
 	rm -rf /tmp/build
 
 ENTRYPOINT ["/init"]

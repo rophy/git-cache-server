@@ -10,11 +10,10 @@ A lightweight container that caches git repos and services them with git and htt
 ## Getting Started
 
 ```console
-docker build -t git-cache-server .
+make build
 
-docker run --rm -p 8080:80 git-cache-server
+make up
 
-docker exec git-http-server bash -c "mkdir -p /srv/git/my-repo && cd /srv/git/my-repo && git init --bare"
-
-git clone http://localhost:8080/my-repo
+# config.yaml listed git-cache-server to cache
+git clone http://localhost:8080/git/git-cache-server
 ```
