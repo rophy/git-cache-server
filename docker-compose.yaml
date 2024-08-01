@@ -5,6 +5,7 @@ services:
     ports:
     - 8080:80
     - 9000:9000
+    - 9418:9418
     environment:
       S6_KEEP_ENV: '1'
     volumes:
