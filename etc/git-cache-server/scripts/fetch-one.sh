@@ -11,13 +11,12 @@ name=$1
 
 cd /srv/git/$name
 
-url=$(git config --get remote.origin.url)
+echo "fetching $name..."
 
 # https://stackoverflow.com/a/1593487
 branch=$(git symbolic-ref -q HEAD)
 branch=${branch##refs/heads/}
 branch=${branch:-HEAD}
 
-echo "fetching $name..."
-git fetch "$url" "$branch:$branch"
+git fetch origin +refs/heads/$branch:refs/heads/$branch --prune
 git log --oneline -1

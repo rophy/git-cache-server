@@ -19,7 +19,7 @@ do
   branch=$(echo "$git_repo" | jq -r .branch)
   if [ -d "$name" ]; then
     echo "$name exists, fetching..."
-    git -C "$name" fetch "$url" "$branch:$branch"
+    git -C "$name" fetch origin +refs/heads/$branch:refs/heads/$branch --prune
     git -C "$name" log --oneline -1
   else
     echo "$name does not exist, cloning..."
