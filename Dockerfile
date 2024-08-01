@@ -12,15 +12,10 @@ RUN tar -C / -Jxpf /tmp/s6-overlay-noarch.tar.xz && \
 	tar -C / -Jxpf /tmp/s6-overlay-x86_64.tar.xz && \
 	rm -rf /tmp/*.xz
 
-COPY . /tmp/build
+COPY etc /tmp/etc
 RUN mkdir -p /srv/git && \
-	mkdir -p /etc/git-cache-server && \
-	cp -R /tmp/build/s6-rc.d /etc/s6-overlay/ && \
-	cp -R /tmp/build/scripts /scripts && \
-	cp /tmp/build/nginx.conf /etc/nginx/nginx.conf  && \
-	cp /tmp/build/config.yaml /etc/git-cache-server/config.yaml && \
-	cp /tmp/build/hooks.yaml /etc/git-cache-server/hooks.yaml && \
-	rm -rf /tmp/build
+	cp -R /tmp/etc/* /etc/ && \
+	rm -rf /tmp/etc
 
 ENTRYPOINT ["/init"]
 

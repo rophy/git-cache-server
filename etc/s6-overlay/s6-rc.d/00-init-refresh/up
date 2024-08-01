@@ -1,0 +1,2 @@
+#!/bin/sh
+exec /etc/git-cache-server/scripts/fetch.sh 2>&1

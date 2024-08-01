@@ -1,6 +1,6 @@
 - id: fetch
   http-methods: [POST]
-  execute-command: /scripts/webhooks/fetch.sh
+  execute-command: /etc/git-cache-server/scripts/webhooks/fetch.sh
   include-command-output-in-response: true
   include-command-output-in-response-on-error: true
   pass-arguments-to-command:
@@ -8,7 +8,7 @@
     source: query
 - id: check
   http-methods: [GET]
-  execute-command: /scripts/webhooks/check.sh
+  execute-command: /etc/git-cache-server/scripts/webhooks/check.sh
   include-command-output-in-response: true
   include-command-output-in-response-on-error: true
   pass-arguments-to-command:
