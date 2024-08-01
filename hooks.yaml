@@ -1,0 +1,8 @@
+- id: fetch
+  http-methods: [POST]
+  execute-command: /scripts/webhooks/fetch.sh
+  include-command-output-in-response: true
+  include-command-output-in-response-on-error: true
+  pass-arguments-to-command:
+  - name: name
+    source: query

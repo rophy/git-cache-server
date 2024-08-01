@@ -1,2 +1,2 @@
 #!/bin/sh
-exec /scripts/init-refresh.sh 2>&1
+exec /scripts/fetch.sh 2>&1

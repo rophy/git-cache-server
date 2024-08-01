@@ -1,7 +1,7 @@
 FROM debian:bookworm-20240722-slim
 
 RUN apt-get update && \
-	apt-get install -y fcgiwrap execline gettext git nginx spawn-fcgi xz-utils yq && \
+	apt-get install -y fcgiwrap execline gettext git nginx spawn-fcgi webhook xz-utils yq && \
 	# for development
 	apt-get install -y apache2-utils curl procps && \
 	rm -rf /var/lib/apt/lists/*
@@ -19,6 +19,7 @@ RUN mkdir -p /srv/git && \
 	cp -R /tmp/build/scripts /scripts && \
 	cp /tmp/build/nginx.conf /etc/nginx/nginx.conf  && \
 	cp /tmp/build/config.yaml /etc/git-cache-server/config.yaml && \
+	cp /tmp/build/hooks.yaml /etc/git-cache-server/hooks.yaml && \
 	rm -rf /tmp/build
 
 ENTRYPOINT ["/init"]
