@@ -6,3 +6,11 @@
   pass-arguments-to-command:
   - name: name
     source: query
+- id: check
+  http-methods: [GET]
+  execute-command: /scripts/webhooks/check.sh
+  include-command-output-in-response: true
+  include-command-output-in-response-on-error: true
+  pass-arguments-to-command:
+  - name: name
+    source: query
