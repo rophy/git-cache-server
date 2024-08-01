@@ -11,4 +11,4 @@ if [ -z "${name}" ]; then
   exit 1
 fi
 
-$script_dir/../fetch.sh $name
+$script_dir/../fetch-one.sh $name

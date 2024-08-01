@@ -1,2 +1,3 @@
-#!/bin/sh
-exec /etc/git-cache-server/scripts/fetch.sh 2>&1
+#!/usr/bin/execlineb -P
+fdmove -c 2 1
+/etc/git-cache-server/scripts/fetch-all.sh

@@ -7,8 +7,6 @@ set -u # exits on undefined vars
 tmpdir="$(mktemp -d)"
 trap 'rm -rf -- "$tmpdir"' EXIT
 
-target_name=${1:-}
-
 config_file=/etc/git-cache-server/config.yaml
 cat $config_file | envsubst > $tmpdir/config.yaml
 # cat $tmpdir/config.yaml
@@ -19,15 +17,14 @@ do
   name=$(echo "$git_repo" | jq -r .name)
   url=$(echo "$git_repo" | jq -r .url)
   branch=$(echo "$git_repo" | jq -r .branch)
-  if [ "$target_name" != "" ] && [ "$target_name" != "$name" ]; then
-    continue
-  fi
   if [ -d "$name" ]; then
     echo "$name exists, fetching..."
     git -C "$name" fetch "$url" "$branch:$branch"
+    git -C "$name" log --oneline -1
   else
     echo "$name does not exist, cloning..."
     git clone --bare --branch "$branch" "$url" "$name"
     touch "$name/git-daemon-export-ok"
+    git -C "$name"
   fi
 done < <(cat $tmpdir/config.yaml | yq -c '.git_repos[]')
