@@ -1,7 +1,7 @@
 FROM debian:bookworm-20240722-slim
 
 RUN apt-get update && \
-	apt-get install -y fcgiwrap execline gettext git nginx spawn-fcgi webhook xz-utils yq && \
+	apt-get install -y cron fcgiwrap execline gettext git nginx spawn-fcgi webhook xz-utils yq && \
 	# for development
 	apt-get install -y apache2-utils curl procps && \
 	rm -rf /var/lib/apt/lists/*
