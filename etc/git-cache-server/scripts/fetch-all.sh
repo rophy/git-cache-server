@@ -40,7 +40,7 @@ do
     echo "$name does not exist, cloning..."
     git clone --bare --branch "$branch" "$url" "$name"
     touch "$name/git-daemon-export-ok"
-    git -C "$name"
+    git -C "$name" log --oneline -1
   fi
   if [ "$cron" != "null" ]; then
     echo "$cron  /etc/git-cache-server/scripts/fetch-one.sh $name" >> /etc/git-cache-server/crontab
