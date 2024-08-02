@@ -13,7 +13,7 @@ cat $config_file | envsubst > $tmpdir/config.yaml
 
 # crontab
 env >> /etc/environment
-echo "" > /etc/crontab
+echo "" > /etc/git-cache-server/crontab
 
 cd /srv/git
 while read git_repo
@@ -33,6 +33,6 @@ do
     git -C "$name"
   fi
   if [ "$cron" != "null" ]; then
-    echo "$cron  root  /etc/git-cache-server/scripts/fetch-one.sh $name" >> /etc/crontab
+    echo "$cron  /etc/git-cache-server/scripts/fetch-one.sh $name" >> /etc/git-cache-server/crontab
   fi
 done < <(cat $tmpdir/config.yaml | yq -c '.git_repos[]')
