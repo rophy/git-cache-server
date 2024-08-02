@@ -12,3 +12,8 @@ repos:
   url: https://github.com/rophy/git-cache-server.git
   branch: main
   cron: "* * * * *"
+gitConfigs:
+- key: user.name
+  value: bob
+- key: user.email
+  value: bob@example.com

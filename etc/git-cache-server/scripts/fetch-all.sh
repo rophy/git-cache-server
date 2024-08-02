@@ -7,9 +7,19 @@ set -u # exits on undefined vars
 tmpdir="$(mktemp -d)"
 trap 'rm -rf -- "$tmpdir"' EXIT
 
-config_file=/etc/git-cache-server/config.yaml
-cat $config_file | envsubst > $tmpdir/config.yaml
-# cat $tmpdir/config.yaml
+cfg_file=$tmpdir/config.yaml
+cat /etc/git-cache-server/config.yaml | envsubst > $cfg_file
+# cat $cfg_file
+
+# git config
+while read git_config
+do
+  key=$(echo "$git_config" | jq -r .key)
+  value=$(echo "$git_config" | jq -r .value)
+  git config --system "$key" "$value"
+done < <(cat $cfg_file | yq -c '.gitConfigs[]')
+echo "git config:"
+git config --list
 
 # crontab
 env >> /etc/environment
