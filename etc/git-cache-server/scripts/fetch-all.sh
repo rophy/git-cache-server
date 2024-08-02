@@ -35,4 +35,4 @@ do
   if [ "$cron" != "null" ]; then
     echo "$cron  /etc/git-cache-server/scripts/fetch-one.sh $name" >> /etc/git-cache-server/crontab
   fi
-done < <(cat $tmpdir/config.yaml | yq -c '.git_repos[]')
+done < <(cat $tmpdir/config.yaml | yq -c '.repos[]')

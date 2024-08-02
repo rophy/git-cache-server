@@ -1,4 +1,13 @@
-git_repos:
+services:
+  git:
+    enabled: true
+  http:
+    enabled: true
+  api:
+    enabled: true
+  cron:
+    enabled: true
+repos:
 - name: git-cache-server
   url: https://github.com/rophy/git-cache-server.git
   branch: main

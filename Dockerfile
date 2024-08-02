@@ -26,5 +26,7 @@ RUN mkdir -p /srv/git && \
 	cp -R /tmp/etc/* /etc/ && \
 	rm -rf /tmp/etc
 
+ENV S6_STAGE2_HOOK=/etc/git-cache-server/scripts/init.sh
+
 ENTRYPOINT ["/init"]
 
