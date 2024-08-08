@@ -24,6 +24,7 @@ RUN curl -fsSLO "https://github.com/aptible/supercronic/releases/download/v0.2.3
 COPY etc /tmp/etc
 RUN mkdir -p /srv/git && \
 	cp -R /tmp/etc/* /etc/ && \
+	touch /etc/git-cache-server/.htpasswd && \
 	rm -rf /tmp/etc
 
 ENV S6_STAGE2_HOOK=/etc/git-cache-server/scripts/init.sh

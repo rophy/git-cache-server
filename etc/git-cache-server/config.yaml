@@ -3,6 +3,7 @@ services:
     enabled: true
   http:
     enabled: true
+    auth: false # if true, mount htpasswd file to /etc/git-cache-server/.htpasswd.
   api:
     enabled: true
   cron:

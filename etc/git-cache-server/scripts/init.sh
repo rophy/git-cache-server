@@ -11,6 +11,7 @@ cfg_file=$tmpdir/config.yaml
 cat /etc/git-cache-server/config.yaml | envsubst > $cfg_file
 # cat $cfg_file
 
+# s6-overlay toggles
 contents_d=/etc/s6-overlay/s6-rc.d/user/contents.d
 cat $cfg_file | yq .services.git.enabled | grep -q true \
   && touch $contents_d/git-daemon && echo "git protocol (:9418) is enabled" || echo "git protocol is disabled"
@@ -21,3 +22,8 @@ cat $cfg_file | yq .services.api.enabled | grep -q true \
 cat $cfg_file | yq .services.cron.enabled | grep -q true \
   && touch $contents_d/supercronic && echo "cron is enabled" || echo "cron is disabled"
 
+# /etc/nginx/nginx.conf
+cat $cfg_file | yq .services.http.auth | grep -q true && auth='"Restricted"' || auth=off
+export NGINX_AUTH_BASIC=$auth
+cat /etc/nginx/nginx.conf | envsubst > $tmpdir/nginx.conf
+cp $tmpdir/nginx.conf /etc/nginx/nginx.conf
