@@ -12,6 +12,10 @@ repos:
 - name: git-cache-server
   url: https://github.com/rophy/git-cache-server.git
   branch: main
+- name: CRDS-catalog
+  url: https://github.com/datreeio/CRDs-catalog.git
+  branch: main
+  depth: 1
   cron: "* * * * *"
 gitConfigs:
 - key: user.name

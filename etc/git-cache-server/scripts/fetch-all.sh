@@ -32,15 +32,24 @@ do
   url=$(echo "$git_repo" | jq -r .url)
   branch=$(echo "$git_repo" | jq -r .branch)
   cron=$(echo "$git_repo" | jq -r .cron)
+  depth=$(echo "$git_repo" | jq -r .depth)
+  if [ "$depth" != "null" ]; then
+    depth_option="--depth $depth"
+  else
+    depth_option=""
+  fi
   if [ -d "$name" ]; then
     echo "$name exists, fetching..."
-    git -C "$name" fetch origin +refs/heads/$branch:refs/heads/$branch --prune
+    git -C "$name" fetch origin +refs/heads/$branch:refs/heads/$branch --prune $depth_option
     git -C "$name" log --oneline -1
   else
     echo "$name does not exist, cloning..."
-    git clone --bare --branch "$branch" "$url" "$name"
+    git clone --bare $depth_option --branch "$branch" "$url" "$name"
     touch "$name/git-daemon-export-ok"
     git -C "$name" log --oneline -1
+  fi
+  if [ "$depth" != "null" ]; then
+    git -C "$name" config --replace-all git-cache.depth $depth
   fi
   if [ "$cron" != "null" ]; then
     echo "$cron  /etc/git-cache-server/scripts/fetch-one.sh $name" >> /etc/git-cache-server/crontab

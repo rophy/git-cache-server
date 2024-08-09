@@ -18,5 +18,12 @@ branch=$(git symbolic-ref -q HEAD)
 branch=${branch##refs/heads/}
 branch=${branch:-HEAD}
 
+depth=$(git config --get git-cache.depth)
+if [ -z "$depth" ]; then
+depth_option=""
+else
+depth_option="--depth $depth"
+fi
+
 git fetch origin +refs/heads/$branch:refs/heads/$branch --prune
 git log --oneline -1
