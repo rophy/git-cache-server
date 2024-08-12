@@ -25,5 +25,5 @@ else
 depth_option="--depth $depth"
 fi
 
-git fetch origin +refs/heads/$branch:refs/heads/$branch --prune
+git fetch origin +refs/heads/$branch:refs/heads/$branch $depth_option --prune
 git log --oneline -1
