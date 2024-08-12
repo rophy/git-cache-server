@@ -15,8 +15,9 @@ repos:
 - name: CRDS-catalog
   url: https://github.com/datreeio/CRDs-catalog.git
   branch: main
-  depth: 1
-  cron: "* * * * *"
+  depth: 1 # if omitted, clone all history
+  bare: false # default: true
+  cron: "* * * * *" # if omitted, no scheduled updates
 gitConfigs:
 - key: user.name
   value: bob

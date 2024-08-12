@@ -33,10 +33,16 @@ do
   branch=$(echo "$git_repo" | jq -r .branch)
   cron=$(echo "$git_repo" | jq -r .cron)
   depth=$(echo "$git_repo" | jq -r .depth)
+  bare=$(echo "$git_repo" | jq -r .bare)
   if [ "$depth" != "null" ]; then
     depth_option="--depth $depth"
   else
     depth_option=""
+  fi
+  if [ "$bare" == "false" ]; then
+    bare_option=""
+  else
+    bare_option="--bare"
   fi
   if [ -d "$name" ]; then
     echo "$name exists, fetching..."
@@ -44,7 +50,7 @@ do
     git -C "$name" log --oneline -1
   else
     echo "$name does not exist, cloning..."
-    git clone --bare $depth_option --branch "$branch" "$url" "$name"
+    git clone $bare_option $depth_option --branch "$branch" "$url" "$name"
     touch "$name/git-daemon-export-ok"
     git -C "$name" log --oneline -1
   fi
